@@ -1,14 +1,9 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const User = require('../../models/users');
-const asyncHandler = require('../../utils/asyncHandler');
-const Joi = require('joi');
+const asyncHandler = require('../../utils/asyncHandler')
 
-const SignupJoi = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-  password: Joi.string().required(),
-});
+const SignupJoi = require('../../validation/singnupJoi')
 
 router.post('/sign-up', asyncHandler(async (req, res) => {
   const { error } = SignupJoi.validate(req.body);
